@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TurmasAlunosApp.Models.Turma>
+
+<h2>Turmas</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var turma in Model)
+        {
+            <tr>
+                <td>@turma.Nome</td>
+                <td>
+                    <button class="btn btn-primary" onclick="toggleAlunos(@turma.Id)">Exibir Alunos Turma </button>
+                </td>
+            </tr>
+            <tr id="alunos-row-@turma.Id" style="display: none;">
+                <td colspan="2">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome do Aluno</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var aluno in turma.Alunos)
+                            {
+                                <tr>
+                                    <td>@aluno.Nome</td>
+                                    <td>
+                                        <button class="btn btn-secondary" onclick="editAluno(@aluno.Id)">Editar</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    function toggleAlunos(turmaId) {
+        var alunosRow = document.getElementById('alunos-row-' + turmaId);
+        if (alunosRow.style.display === 'none') {
+            alunosRow.style.display = 'table-row';
+        } else {
+            alunosRow.style.display = 'none';
+        }
+    }
+
+    function editAluno(alunoId) {
+        // Aqui você pode implementar a lógica para redirecionar para a página de edição do aluno
+        // ou abrir um modal para edição inline
+        window.location.href = '/Aluno/Edit/' + alunoId;
+    }
+</script>

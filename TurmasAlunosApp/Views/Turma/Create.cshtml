@@ -1,0 +1,14 @@
+﻿@model TurmasAlunosApp.Models.Turma
+
+<h2>Adicionar Turma</h2>
+
+<form asp-action="Create" method="post">
+    <div class="form-group">
+        <label asp-for="Nome"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Salvar</button>
+</form>
+
+<a class="btn btn-secondary" href="/Turma">Voltar</a>

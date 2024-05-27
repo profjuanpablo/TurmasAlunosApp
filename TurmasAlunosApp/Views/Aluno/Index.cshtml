@@ -1,0 +1,49 @@
+﻿@model IPagedList<TurmasAlunosApp.Models.Aluno>
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+
+
+@{
+    ViewBag.Title = "Alunos";
+}
+
+<h2>Alunos</h2>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Turma</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var aluno in Model)
+        {
+            <tr>
+                <td>@aluno.Nome</td>
+                <td>@aluno.Turma?.Nome</td>
+                <td>
+                    <a class="btn btn-primary" asp-action="Edit" asp-route-id="@aluno.Id">Editar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<form method="get" asp-action="Index">
+    <div class="form-group">
+        <label for="pageSize">Registros por página:</label>
+        <select name="pageSize" id="pageSize" class="form-control" onchange="this.form.submit()">
+            <option value="5" selected="@(ViewBag.PageSize == 5 ? "selected" : null)">5</option>
+            <option value="10" selected="@(ViewBag.PageSize == 10 ? "selected" : null)">10</option>
+            <option value="20" selected="@(ViewBag.PageSize == 20 ? "selected" : null)">20</option>
+        </select>
+
+    </div>
+</form>
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, pageSize = ViewBag.PageSize }), PagedListRenderOptions.ClassicPlusFirstAndLast)
+</div>
